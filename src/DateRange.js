@@ -51,9 +51,8 @@ class DateRange extends Component {
   }
 
   handleSelect(date, source) {
-    console.log(this.props);
     const defineRange = this.props.defineRange - 1;
-    console.log(defineRange);
+
     const range = {
       startDate : date,
       endDate   : moment(date).add(defineRange, 'day')
