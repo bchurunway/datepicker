@@ -157,28 +157,74 @@ class Calendar extends Component {
     const nextMonthNumber          = nextMonth.month();
 
     const days                     = [];
+    const disableDate              = this.props.disableDate;
+    const yesterDay                = moment().subtract(1, 'days');
+    const moreThanSixMonths        = moment().add(6, 'months');
 
     // Previous month's days
     const diff = (Math.abs(firstDayOfWeek - (startOfMonth + 7)) % 7);
     for (let i = diff-1; i >= 0; i--) {
       const dayMoment  = lastMonth.clone().date(lastMonthDayCount - i);
-      days.push({ dayMoment, isPassive : true });
+      let setIsPassive = false;
+
+      // If passed date
+      if (dayMoment.isBefore(yesterDay) ) {
+        setIsPassive = true;
+      }
+
+      // If more than 6 month from today
+      if (dayMoment.isAfter(moreThanSixMonths)) {
+        setIsPassive = true;
+      }
+
+      days.push({ dayMoment, isPassive: setIsPassive });
     }
 
     // Current month's days
     for (let i = 1; i <= dayCount; i++) {
       const dayMoment  = shownDate.clone().date(i);
-      const yesterDay  = moment().subtract(1, 'days');
+      const checkDisableDate = disableDate.indexOf(dayMoment);
 
-      days.push({ dayMoment, isPassive : dayMoment.isBefore(yesterDay) });
-      console.log(days);
+      let setIsPassive = false;
+      // If passed date
+      if (dayMoment.isBefore(yesterDay) ) {
+        setIsPassive = true;
+      }
+
+      // If have specific disable date
+      if (disableDate.length > 0) {
+        for (let i = 0; i < disableDate.length; i++) {
+          if (disableDate[i].diff(dayMoment, 'days') === 0) {
+            setIsPassive = true;
+          }
+        }
+      }
+
+      // If more than 6 month from today
+      if (dayMoment.isAfter(moreThanSixMonths)) {
+        setIsPassive = true;
+      }
+
+      days.push({ dayMoment, isPassive : setIsPassive });
     }
 
     // Next month's days
     const remainingCells = 42 - days.length; // 42cells = 7days * 6rows
     for (let i = 1; i <= remainingCells; i++ ) {
       const dayMoment  = nextMonth.clone().date(i);
-      days.push({ dayMoment, isPassive : true });
+      let setIsPassive = false;
+
+      // If passed date
+      if (dayMoment.isBefore(yesterDay) ) {
+        setIsPassive = true;
+      }
+
+      // If more than 6 month from today
+      if (dayMoment.isAfter(moreThanSixMonths)) {
+        setIsPassive = true;
+      }
+
+      days.push({ dayMoment, isPassive : setIsPassive });
     }
 
     const today = moment().startOf('day');
@@ -254,7 +300,8 @@ Calendar.propTypes = {
   linkCB         : PropTypes.func,
   theme          : PropTypes.object,
   onlyClasses    : PropTypes.bool,
-  classNames     : PropTypes.object
+  classNames     : PropTypes.object,
+  disableDate     : PropTypes.array
 }
 
 export default Calendar;

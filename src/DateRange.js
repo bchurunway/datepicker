@@ -13,7 +13,6 @@ class DateRange extends Component {
     const { format, linkedCalendars, theme } = props;
     const startDate = parseInput(props.startDate, format);
     const endDate   = parseInput(props.endDate, format);
-
     this.state = {
       range     : { startDate, endDate },
       link      : linkedCalendars && endDate,
@@ -124,6 +123,7 @@ class DateRange extends Component {
                 maxDate={ maxDate }
 		            onlyClasses={ onlyClasses }
                 classNames={ classes }
+                disableDate= { this.props.disableDate }
                 onChange={ this.handleSelect.bind(this) }  />
             );
           }
@@ -158,7 +158,8 @@ DateRange.propTypes = {
   onInit          : PropTypes.func,
   onChange        : PropTypes.func,
   onlyClasses     : PropTypes.bool,
-  classNames      : PropTypes.object
+  classNames      : PropTypes.object,
+  disableDate     : PropTypes.array
 }
 
 export default DateRange;

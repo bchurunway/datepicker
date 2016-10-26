@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { defaultRanges, Calendar, DateRange } from '../../../lib';
 import Section from 'components/Section';
+import moment from 'moment';
 
 import 'normalize.css';
 import 'styles/global'
@@ -16,7 +17,7 @@ export default class Main extends Component {
       'datePicker' : null,
       'firstDayOfWeek' : null,
       'predefined' : {},
-      'defineRange': null
+      'defineRange': 4
     }
   }
 
@@ -27,6 +28,16 @@ export default class Main extends Component {
   render() {
     const { rangePicker, linked, datePicker, firstDayOfWeek, predefined} = this.state;
     const format = 'dddd, D MMMM YYYY';
+    const disableDate = [
+      moment("Nov 14 00:00:00", "MMM DD hh:mm:ss"),
+      moment("Nov 15 00:00:00", "MMM DD hh:mm:ss"),
+      moment("Nov 16 00:00:00", "MMM DD hh:mm:ss"),
+      moment("Nov 17 00:00:00", "MMM DD hh:mm:ss"),
+      moment("Nov 23 00:00:00", "MMM DD hh:mm:ss"),
+      moment("Nov 24 00:00:00", "MMM DD hh:mm:ss"),
+      moment("Nov 25 00:00:00", "MMM DD hh:mm:ss"),
+      moment("Nov 26 00:00:00", "MMM DD hh:mm:ss")
+    ];
 
     return (
       <main className={styles['Main']}>
@@ -39,7 +50,7 @@ export default class Main extends Component {
             <input type="radio" name="rage" value="8" onChange={ this.handleChange.bind(this) } /> 8 days
           </div>
 
-          <DateRange defineRange={ this.state.defineRange }/>
+          <DateRange defineRange={ this.state.defineRange } disableDate={disableDate}/>
         </Section>
 
       </main>
