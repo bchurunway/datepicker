@@ -168,7 +168,10 @@ class Calendar extends Component {
     // Current month's days
     for (let i = 1; i <= dayCount; i++) {
       const dayMoment  = shownDate.clone().date(i);
-      days.push({ dayMoment });
+      const yesterDay  = moment().subtract(1, 'days');
+
+      days.push({ dayMoment, isPassive : dayMoment.isBefore(yesterDay) });
+      console.log(days);
     }
 
     // Next month's days
