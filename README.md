@@ -3,7 +3,7 @@ A React component for choosing dates and date ranges. customize from https://git
 
 # Docs
 ### Disable specific date
-Pass specific date than need to disable via props (PropsType.array)
+Pass specific date that to need disable via props (PropsType.array)
 ex.
 ```javascript
 const disableDate = [
