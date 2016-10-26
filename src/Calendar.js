@@ -183,7 +183,6 @@ class Calendar extends Component {
     // Current month's days
     for (let i = 1; i <= dayCount; i++) {
       const dayMoment  = shownDate.clone().date(i);
-      const checkDisableDate = disableDate.indexOf(dayMoment);
 
       let setIsPassive = false;
       // If passed date
