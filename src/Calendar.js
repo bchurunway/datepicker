@@ -191,7 +191,7 @@ class Calendar extends Component {
       }
 
       // If have specific disable date
-      if (disableDate.length > 0) {
+      if (disableDate !== undefined) {
         for (let i = 0; i < disableDate.length; i++) {
           if (disableDate[i].diff(dayMoment, 'days') === 0) {
             setIsPassive = true;

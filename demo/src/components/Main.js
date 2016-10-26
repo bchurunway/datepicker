@@ -50,7 +50,7 @@ export default class Main extends Component {
             <input type="radio" name="rage" value="8" onChange={ this.handleChange.bind(this) } /> 8 days
           </div>
 
-          <DateRange defineRange={ this.state.defineRange } disableDate={disableDate}/>
+          <DateRange defineRange={ this.state.defineRange }/>
         </Section>
 
       </main>
